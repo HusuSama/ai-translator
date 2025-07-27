@@ -17,6 +17,8 @@
     config = function()
       vim.keymap.set({ "n", "v" }, "<leader>Tw", require("ai-translator").trans, { noremap = true })
       require("ai-translator").setup {
+        -- target language for translations
+        language = "Chinese",
         model = {
           api_key = "xxx",
         },
@@ -41,6 +43,8 @@
     config = function()
       vim.keymap.set({ "n", "v" }, "<leader>Tw", require("ai-translator").trans, { noremap = true })
       require("ai-translator").setup {
+        -- target language for translations
+        language = "Chinese",
         model = {
           model_name = "deepseek-chat",
           base_url = "https://api.deepseek.com/chat/completions"
@@ -63,6 +67,34 @@
 > [!importtant]
 > 插件不会主动设置任何映射，你需要自己设置你喜欢的按键
 
+
+默认配置
+
+```lua
+---@class ai-translator.Config
+{
+    ---@alias ai-translator.Language string
+    -- target language for translations
+    language = "Chinese",
+    ---@alias ai-translator.ProviderName "openai" | string
+    provider = "openai",
+    -- If the api_key is not set, the environment variable API_KEY will be used. You can change it by configuring env_key.
+    ---@alias ai-translator.ModelOpts {base_url: string, api_key?: string, env_key: string, model_name: string}
+    model = {
+        base_url = "https://api.deepseek.com/chat/completions",
+        model_name = "deepseek-chat",
+        env_key = "API_KEY",
+    },
+    ---@alias ai-translator.UIOptions {width: number, height: number, relative: string, position: table}
+    ui = {
+        width = 40,
+        height = 20,
+        relative = "cursor",
+        position = { row = 3, col = 2 },
+    },
+    thinking_icons = { "🤯", "😶‍🌫️", "🤔", "🧠", "💭" },
+}
+```
 
 ## 使用
 

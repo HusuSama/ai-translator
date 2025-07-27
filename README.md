@@ -18,6 +18,8 @@ You can install it using any method you prefer. Here's an example using [lazy.nv
   config = function()
     vim.keymap.set({ "n", "v" }, "<leader>Tw", require("ai-translator").trans, { noremap = true })
     require("ai-translator").setup {
+    -- target language for translations
+    language = "Chinese",
       model = {
         api_key = "xxx",
       },
@@ -39,6 +41,8 @@ You can install it using any method you prefer. Here's an example using [lazy.nv
   "HusuSama/ai-translator",
   config = function()
     vim.keymap.set({ "n", "v" }, "<leader>Tw", require("ai-translator").trans, { noremap = true })
+    -- target language for translations
+    language = "Chinese",
     require("ai-translator").setup {
       model = {
         model_name = "deepseek-chat",
@@ -60,6 +64,34 @@ You can install it using any method you prefer. Here's an example using [lazy.nv
 
 > [!important]
 > The plugin doesn't set any keymaps automatically – you need to configure your preferred keybindings.
+
+default config
+
+```lua
+---@class ai-translator.Config
+{
+    ---@alias ai-translator.Language string
+    -- target language for translations
+    language = "Chinese",
+    ---@alias ai-translator.ProviderName "openai" | string
+    provider = "openai",
+    -- If the api_key is not set, the environment variable API_KEY will be used. You can change it by configuring env_key.
+    ---@alias ai-translator.ModelOpts {base_url: string, api_key?: string, env_key: string, model_name: string}
+    model = {
+        base_url = "https://api.deepseek.com/chat/completions",
+        model_name = "deepseek-chat",
+        env_key = "API_KEY",
+    },
+    ---@alias ai-translator.UIOptions {width: number, height: number, relative: string, position: table}
+    ui = {
+        width = 40,
+        height = 20,
+        relative = "cursor",
+        position = { row = 3, col = 2 },
+    },
+    thinking_icons = { "🤯", "😶‍🌫️", "🤔", "🧠", "💭" },
+}
+```
 
 ## Usage
 Use the configured keybinding or call require("ai-translator").trans() to perform translations.
