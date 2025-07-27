@@ -1,5 +1,7 @@
 # AI Translator
 
+[中文版](https://github.com/HusuSama/ai-translator/blob/main/README_CN.md)
+
 A simple plugin that uses `AI` to help you translate quickly and conveniently.
 
 ## Screenshots
@@ -51,13 +53,7 @@ You can install it using any method you prefer. Here's an example using [lazy.nv
   dependencies = {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
-    {
-      "MeanderingProgrammer/render-markdown.nvim",
-      opts = {
-        file_types = { "markdown", "AITranslator" },
-      },
-      ft = { "markdown", "AITranslator" },
-    },
+    "MeanderingProgrammer/render-markdown.nvim",
   },
 }
 ```
