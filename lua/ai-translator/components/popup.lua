@@ -1,12 +1,15 @@
 local Popup = require "nui.popup"
-local Config = require "ai-translator.config"
--- local config = Config.get_config()
+-- local Config = require "ai-translator.config"
 
----@class ai-translator.UIConfig
+---@class ai-translator.Components.Popup
+---@field popup any
+---@field append_content function
+---@field animation_timer number
+---@field animation_count number
 local M = {}
 
-function M:new()
-    local config = Config.get_config()
+function M:new(config)
+    -- local config = Config.get_config()
     local popup = Popup {
         ns_id = "ai-translator",
         enter = true,

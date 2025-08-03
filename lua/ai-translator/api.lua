@@ -1,6 +1,6 @@
 local Config = require "ai-translator.config"
-local provider = require "ai-translator.providers"
-local ui_module = require "ai-translator.ui"
+local Provider = require "ai-translator.providers"
+local Popup = require "ai-translator.components.popup"
 local Curl = require "plenary.curl"
 local M = {}
 
@@ -14,10 +14,19 @@ function M.trim(str)
     return trim_str
 end
 
-function M.send_request()
-    local config = Config.get_config()
-    provider = provider.setup(config)
-    local ui = ui_module:new()
+---@param words string
+---@param config? ai-translator.Config
+function M.send_request(words, config)
+    -- local config = Config.get_config()
+    if config == nil then
+        config = Config.get_config()
+    end
+    if words == nil or words == "" then
+        vim.notify("[ai-translator] No message", vim.log.levels.ERROR)
+        return
+    end
+    local provider = Provider.setup(config, words)
+    local ui = Popup:new(config)
     ui:mount()
     ui:start_thinking_animation()
     local body = vim.json.encode(provider.body)

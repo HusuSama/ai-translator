@@ -13,7 +13,8 @@ function M._get_visual_text_from_register()
 
     local cursor_pos = vim.api.nvim_win_get_cursor(0)
 
-    vim.cmd "silent normal! y"
+    -- vim.cmd "silent normal! y"
+    vim.cmd 'silent normal! gv""y'
 
     local selection = vim.fn.getreg '"'
 
@@ -58,15 +59,23 @@ function M._get_visual_text()
     return table.concat(lines, "\n")
 end
 
+---@param mode string
 ---@return string
-function M.get_word()
-    local mode = vim.fn.mode()
-
+function M.get_word(mode)
     if mode == "n" then
         return M._get_cursor_word()
+    else
+        return M._get_visual_text_from_register()
     end
-    -- return M._get_visual_text()
-    return M._get_visual_text_from_register()
+end
+
+function M.get_line_diagnostic()
+    local messages = {}
+    local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line "." - 1 })
+    for _, value in ipairs(diagnostics) do
+        table.insert(messages, value.message)
+    end
+    return table.concat(messages)
 end
 
 return M
